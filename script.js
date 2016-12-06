@@ -17,6 +17,10 @@ var answers = [];
 
 function startup () {
 
+	var clickGuess = document.getElementById("listener");
+
+	clickGuess.addEventListener('click', startup);
+
 	word = words[Math.floor(Math.random() * words.length)];
 
 	answers = [];
@@ -25,12 +29,12 @@ function startup () {
 		}
 	document.getElementById("answer").innerHTML= answers.join(" ");
 
-}
+};
 
 
 function firstGuess () {
 
-	var guess = parseInt(document.getElementById("numGuess").value);
+	var guess = document.getElementById("numGuess").value;
 	var showMessage = "";
 
 	if (guess.length !== 1) {
@@ -41,16 +45,34 @@ function firstGuess () {
 			for (i = 0; i < words.length; i++) {
 				if (words[i] === guess) {
 					answers = guess;
-					showMessage =guess + "is in the answer!"
+					showMessage = guess + "is in the answer!"
+				}
+			}
+			var lettersLeft = answers.length;
+
+			for (i = 0; i < answers.length; i++) {
+				if (answers[i] !== '_') {
+					lettersLeft -= 1;
 				}
 			}
 
-		if(guessCount >= maxGuesses){
-			document.getElementById("").innerHTML = "You lost!"
-		}
+			if (lettersLeft == 0) {
+				showMessage = "You have guessed the word!"
+			}
+
+			if (showMessage === "") {
+				showMessage = "No " +guess;
+			}
+
+			document.getElementById("answer").innerHTML=answers.join(" ");
+
 			document.getElementById("numGuess").value = "";
 	}
-}
+
+		document.getElementById()
+};
+
+
 
 
 
