@@ -1,4 +1,4 @@
-var guesses = 0;
+var guessCount = 0;
 var maxGuesses = 10;
 
 var words = [
@@ -30,22 +30,26 @@ function startup () {
 
 function firstGuess () {
 
-	var guesses = document.getElementById("").value;
+	var guess = parseInt(document.getElementById("numGuess").value);
 	var showMessage = "";
 
-	if (guesses.length !== 1) {
+	if (guess.length !== 1) {
 		showMessage ="Enter a single letter"
 	}
 		else {
 			var i = 0;
 			for (i = 0; i < words.length; i++) {
-				if (words[i] === guesses) {
-					answers = guesses;
-					showMessage =guesses + "is in the answer!"
+				if (words[i] === guess) {
+					answers = guess;
+					showMessage =guess + "is in the answer!"
 				}
 			}
 
+		if(guessCount >= maxGuesses){
+			document.getElementById("").innerHTML = "You lost!"
 		}
+			document.getElementById("numGuess").value = "";
+	}
 }
 
 
