@@ -1,6 +1,25 @@
 $(document).ready(function() {
 
 
+var letters = $('.letter-button')
+
+var words = [
+
+	"westworld",
+	"survivor",
+	"shameless",
+	"quantico",
+	"stranger_things",
+	"black_mirror"
+];
+
+
+$('.letter-button').on('click', function(){
+	$(this).hide();
+
+	});
+});
+
 
 
 
@@ -13,12 +32,7 @@ $(document).ready(function() {
 
 // var words = [
 
-// 	"westworld",
-// 	"survivor",
-// 	"shameless",
-// 	"quantico",
-// 	"stranger_things",
-// 	"black_mirror"
+
 // ];
 
 // var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
