@@ -13,12 +13,31 @@ var words = [
 	"black_mirror"
 ];
 
+function startGame() {
+
+    $(".start").on('click', function(){
+
+        var word = words[Math.floor(Math.random()*words.length)];
+
+        var wordLength = word.length;
+		var underscores = "";
+			for(i=0; i<wordLength; i++) {
+    			underscores = underscores + ("_ ")
+			}
+			$('.placeholders').html(underscores)
+    	});
+	}
+
+startGame();
+
 
 $('.letter-button').on('click', function(){
 	$(this).hide();
 
 	});
 });
+
+
 
 
 

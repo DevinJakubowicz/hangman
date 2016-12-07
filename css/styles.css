@@ -2,7 +2,7 @@
   margin: 0 auto; }
 
 .header {
-  margin: 0 auto;
+  margin: 15px;
   text-align: center; }
 
 .form {
@@ -18,6 +18,11 @@ h5 {
 .letter-button {
   display: inline;
   font-size: 35px; }
+
+.placeholders {
+  font-size: 35px;
+  margin: 20px;
+  text-align: center; }
 
 #alphabet-keypad {
   text-align: center; }

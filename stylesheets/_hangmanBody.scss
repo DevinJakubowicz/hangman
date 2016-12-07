@@ -1,8 +1,19 @@
+$text-size: 35px;
+
+
 .letter-button {
 	
 	display:inline;
-	font-size: 35px;
+	font-size: $text-size;
 	
+}
+
+.placeholders {
+
+font-size: $text-size;
+margin: 20px;
+text-align:center;
+
 }
 
 #alphabet-keypad {
