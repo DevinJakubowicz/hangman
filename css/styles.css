@@ -15,4 +15,11 @@ h4 {
 h5 {
   text-align: center; }
 
+.letter-button {
+  display: inline;
+  font-size: 35px; }
+
+#alphabet-keypad {
+  text-align: center; }
+
 /*# sourceMappingURL=styles.css.map */
