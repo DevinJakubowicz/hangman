@@ -13,7 +13,7 @@ var words = [
 	"black_mirror"
 ];
 
-var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
 
 var word = "";
 
@@ -21,9 +21,9 @@ var answers = [];
 
 function startup () {
 
-	var clickGuess = document.getElementById("listener");
+	var clickStart = document.getElementById("listener");
 
-	clickGuess.addEventListener('click', startup);
+	clickStart.addEventListener('click', startup);
 
 	word = words[Math.floor(Math.random() * words.length)];
 
@@ -31,7 +31,7 @@ function startup () {
 		for (var i = 0; word.length; i++) {
 			answers[i] = "_";
 		}
-	document.getElementById("answer").innerHTML= answers.join(" ");
+	document.getElementById("answer").innerText= answers.join(" ");
 
 };
 
@@ -49,7 +49,7 @@ function firstGuess () {
 			for (i = 0; i < words.length; i++) {
 				if (words[i] === guess) {
 					answers = guess;
-					showMessage = guess + "is in the answer!"
+					showMessage = guess + " is in the answer!"
 				}
 			}
 			var lettersLeft = answers.length;
@@ -68,24 +68,62 @@ function firstGuess () {
 				showMessage = "No " +guess;
 			}
 
-			document.getElementById("answer").innerHTML=answers.join(" ");
+			document.getElementById("answer").innerText=answers.join(" ");
 
 			document.getElementById("numGuess").value = "";
 	}
 
-		document.getElementById("message").innerHTML = showMessage;
+		document.getElementById("message").innerText = showMessage;
 };
 
-	function checkLetter (letter) {
 
+	// function hangman () {
 
-	}
+	// 	if (guessedWrong === 0) {
+	// 		document.getElementByClassName("hangman-container").innerHTML = 
+	// 	}
 
+		// else if (guessedWrong === 1) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
 
-	function hangman () {
+		// else if (guessedWrong === 2) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
 
+		// else if (guessedWrong === 3) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
 
-	}
+		// else if (guessedWrong === 4) {
+		// 	document.getElementByClassName("hangman-container").innerHTML = 
+		// }
+
+		// else if (guessedWrong === 5) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
+
+		// else if (guessedWrong === 6) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
+
+		// else if (guessedWrong === 7) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
+
+		// else if (guessedWrong === 8) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
+
+		// else if (guessedWrong === 9) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
+
+		// else (guessedWrong === 10) {
+		// 	document.getElementByClassName("hangman-container").innerHTML =
+		// }
+
+	// };
 
 
 
