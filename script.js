@@ -1,4 +1,6 @@
 var guessCount = 0;
+var guessedRight = 0;
+var guessedWrong = 0;
 var maxGuesses = 10;
 
 var words = [
@@ -11,7 +13,9 @@ var words = [
 	"black_mirror"
 ];
 
-var word= "";
+var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+var word = "";
 
 var answers = [];
 
@@ -69,9 +73,19 @@ function firstGuess () {
 			document.getElementById("numGuess").value = "";
 	}
 
-		document.getElementById()
+		document.getElementById("message").innerHTML = showMessage;
 };
 
+	function checkLetter (letter) {
+
+
+	}
+
+
+	function hangman () {
+
+
+	}
 
 
 
