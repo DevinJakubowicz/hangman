@@ -24,10 +24,13 @@ h5 {
   margin: 20px;
   text-align: center; }
 
-#alphabet-keypad {
+#alphabet {
   text-align: center; }
 
 p {
   display: inline; }
+
+img {
+  margin: 0px 0px 0px 350px; }
 
 /*# sourceMappingURL=styles.css.map */

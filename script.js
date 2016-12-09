@@ -1,7 +1,13 @@
 $(document).ready(function() {
 
 
-var letters = $('.letter-button')
+var letters = $('.letter-button');
+
+var guessedWrong = 0;
+
+var guessedRight = 0;
+
+var answerArray = [];
 
 var words = [
 
@@ -9,174 +15,130 @@ var words = [
 	"survivor",
 	"shameless",
 	"quantico",
-	"stranger_things",
-	"black_mirror"
+	"strangerthings",
+	"blackmirror"
 ];
 
-function startGame() {
+//Function when hitting the start/restart button
+
+function startGame() { 
+
 
     $(".start").on('click', function(){
+
+    	$('.letter-button').show()
 
         var word = words[Math.floor(Math.random()*words.length)];
 
         var wordLength = word.length;
+
 		var underscores = "";
+
 			for(i=0; i<wordLength; i++) {
+
     			underscores = underscores + ("_ ")
 			}
+
 			$('.placeholders').html(underscores)
     	});
 	}
 
 startGame();
 
+//function when letter is getting picked
+
+  function pickLetter() {
+
+    var letterPicked = $('#alphabet');
+
+    letterPicked = letterPicked.html();
+
+    chosenLetter(letterPicked);
+  }
+
+  function chosenLetter (letterPicked) {
+
+    var resultMatches = [];
+
+    var letter = currentWord.indexOf(letterPicked);
+
+    // if letterPicked matches one or more letters in the current word push to resultMatches
+
+    while (letter !== -1) {
+
+     resultMatches.push(letter);
+
+     letter = currentWord.indexOf(letterPicked, letter + 1);
+    }
+
+     if (resultMatches.length > 0) {
+
+      guessedRight++;
+ 	}
+}
+
+//also have to make method that adds one to guessWrong when wrong letter is clicked
+
+
+//Hiding the letter when they are clicked
+
 
 $('.letter-button').on('click', function(){
 	$(this).hide();
 
-	});
+ 	});
+
+//Write a function that switched the image everytime another guess is added to guessWrong
+
 });
 
+function hangman() {
+
+	var hangmanImg = $('img');
+
+	if (guessWrong === 1) {
+
+		$('img').replaceWith('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0ODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSJudWxsIiBzdHlsZT0idmVjdG9yLWVmZmVjdDogbm9uLXNjYWxpbmctc3Ryb2tlOyI+CiA8IS0tIENyZWF0ZWQgd2l0aCBTVkctZWRpdCAtIGh0dHA6Ly9zdmctZWRpdC5nb29nbGVjb2RlLmNvbS8gLS0+CiA8ZyBzdHJva2U9Im51bGwiPgogIDx0aXRsZSBzdHJva2U9Im51bGwiPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z18xIiB5Mj0iMzc1IiB4Mj0iMjk4IiB5MT0iMzc0IiB4MT0iMTAyIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMiIgeTI9IjEwOCIgeDI9IjIwNiIgeTE9IjM3MyIgeDE9IjIwMiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzMiIHkyPSIxMTEiIHgyPSIzNDAiIHkxPSIxMTEiIHgxPSIyMDUiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z180IiB5Mj0iMTEwIiB4Mj0iMjU5IiB5MT0iMTcwIiB4MT0iMjA2IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfNSIgeTI9IjE0MCIgeDI9IjMzOCIgeTE9IjEwOSIgeDE9IjMzOCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGVsbGlwc2Ugc3Ryb2tlPSIjMDAwMDAwIiByeT0iMjMiIHJ4PSIxNSIgaWQ9InN2Z182IiBjeT0iMTYxIiBjeD0iMzM3IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KIDwvZz4KPC9zdmc+')
+	}
+
+	if (guessWrong === 2) {
+
+		$('img').replaceWith('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0ODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSJudWxsIiBzdHlsZT0idmVjdG9yLWVmZmVjdDogbm9uLXNjYWxpbmctc3Ryb2tlOyI+CiA8IS0tIENyZWF0ZWQgd2l0aCBTVkctZWRpdCAtIGh0dHA6Ly9zdmctZWRpdC5nb29nbGVjb2RlLmNvbS8gLS0+CiA8ZyBzdHJva2U9Im51bGwiPgogIDx0aXRsZSBzdHJva2U9Im51bGwiPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z18xIiB5Mj0iMzc1IiB4Mj0iMjk4IiB5MT0iMzc0IiB4MT0iMTAyIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMiIgeTI9IjEwOCIgeDI9IjIwNiIgeTE9IjM3MyIgeDE9IjIwMiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzMiIHkyPSIxMTEiIHgyPSIzNDAiIHkxPSIxMTEiIHgxPSIyMDUiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z180IiB5Mj0iMTEwIiB4Mj0iMjU5IiB5MT0iMTcwIiB4MT0iMjA2IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfNSIgeTI9IjE0MCIgeDI9IjMzOCIgeTE9IjEwOSIgeDE9IjMzOCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGVsbGlwc2Ugc3Ryb2tlPSIjMDAwMDAwIiByeT0iMjMiIHJ4PSIxNSIgaWQ9InN2Z182IiBjeT0iMTYxIiBjeD0iMzM3IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBpZD0ic3ZnXzgiIHkyPSIyNDgiIHgyPSIzMzgiIHkxPSIxODUiIHgxPSIzMzciIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg==')
+
+	}
+
+	if (guessWrong === 3) {
+
+		$('img').replaceWith('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0ODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSJudWxsIiBzdHlsZT0idmVjdG9yLWVmZmVjdDogbm9uLXNjYWxpbmctc3Ryb2tlOyI+CiA8IS0tIENyZWF0ZWQgd2l0aCBTVkctZWRpdCAtIGh0dHA6Ly9zdmctZWRpdC5nb29nbGVjb2RlLmNvbS8gLS0+CiA8ZyBzdHJva2U9Im51bGwiPgogIDx0aXRsZSBzdHJva2U9Im51bGwiPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z18xIiB5Mj0iMzc1IiB4Mj0iMjk4IiB5MT0iMzc0IiB4MT0iMTAyIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMiIgeTI9IjEwOCIgeDI9IjIwNiIgeTE9IjM3MyIgeDE9IjIwMiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzMiIHkyPSIxMTEiIHgyPSIzNDAiIHkxPSIxMTEiIHgxPSIyMDUiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z180IiB5Mj0iMTEwIiB4Mj0iMjU5IiB5MT0iMTcwIiB4MT0iMjA2IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfNSIgeTI9IjE0MCIgeDI9IjMzOCIgeTE9IjEwOSIgeDE9IjMzOCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGVsbGlwc2Ugc3Ryb2tlPSIjMDAwMDAwIiByeT0iMjMiIHJ4PSIxNSIgaWQ9InN2Z182IiBjeT0iMTYxIiBjeD0iMzM3IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBpZD0ic3ZnXzgiIHkyPSIyNDgiIHgyPSIzMzgiIHkxPSIxODUiIHgxPSIzMzciIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg==')
+
+	}
+
+	if (guessWrong === 4) {
+
+		$('img').replaceWith('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0ODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSJudWxsIiBzdHlsZT0idmVjdG9yLWVmZmVjdDogbm9uLXNjYWxpbmctc3Ryb2tlOyI+CiA8IS0tIENyZWF0ZWQgd2l0aCBTVkctZWRpdCAtIGh0dHA6Ly9zdmctZWRpdC5nb29nbGVjb2RlLmNvbS8gLS0+CiA8ZyBzdHJva2U9Im51bGwiPgogIDx0aXRsZSBzdHJva2U9Im51bGwiPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z18xIiB5Mj0iMzc1IiB4Mj0iMjk4IiB5MT0iMzc0IiB4MT0iMTAyIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMiIgeTI9IjEwOCIgeDI9IjIwNiIgeTE9IjM3MyIgeDE9IjIwMiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzMiIHkyPSIxMTEiIHgyPSIzNDAiIHkxPSIxMTEiIHgxPSIyMDUiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z180IiB5Mj0iMTEwIiB4Mj0iMjU5IiB5MT0iMTcwIiB4MT0iMjA2IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfNSIgeTI9IjE0MCIgeDI9IjMzOCIgeTE9IjEwOSIgeDE9IjMzOCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGVsbGlwc2Ugc3Ryb2tlPSIjMDAwMDAwIiByeT0iMjMiIHJ4PSIxNSIgaWQ9InN2Z182IiBjeT0iMTYxIiBjeD0iMzM3IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBpZD0ic3ZnXzgiIHkyPSIyNDgiIHgyPSIzMzgiIHkxPSIxODUiIHgxPSIzMzciIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJub25lIi8+CiAgPGxpbmUgaWQ9InN2Z185IiB5Mj0iMTc5LjE0Mjg4MyIgeDI9IjM4NS43MTQyOTQiIHkxPSIyMDEuMTQyODgzIiB4MT0iMzM1LjcxNDI5NCIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2U9IiMwMDAwMDAiIGZpbGw9Im5vbmUiLz4KIDwvZz4KPC9zdmc+')
+
+	}
+
+	if (guessWrong === 5) {
+
+		$('img').replaceWith('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0ODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSJudWxsIiBzdHlsZT0idmVjdG9yLWVmZmVjdDogbm9uLXNjYWxpbmctc3Ryb2tlOyI+CiA8IS0tIENyZWF0ZWQgd2l0aCBTVkctZWRpdCAtIGh0dHA6Ly9zdmctZWRpdC5nb29nbGVjb2RlLmNvbS8gLS0+CiA8ZyBzdHJva2U9Im51bGwiPgogIDx0aXRsZSBzdHJva2U9Im51bGwiPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z18xIiB5Mj0iMzc1IiB4Mj0iMjk4IiB5MT0iMzc0IiB4MT0iMTAyIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMiIgeTI9IjEwOCIgeDI9IjIwNiIgeTE9IjM3MyIgeDE9IjIwMiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzMiIHkyPSIxMTEiIHgyPSIzNDAiIHkxPSIxMTEiIHgxPSIyMDUiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z180IiB5Mj0iMTEwIiB4Mj0iMjU5IiB5MT0iMTcwIiB4MT0iMjA2IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfNSIgeTI9IjE0MCIgeDI9IjMzOCIgeTE9IjEwOSIgeDE9IjMzOCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGVsbGlwc2Ugc3Ryb2tlPSIjMDAwMDAwIiByeT0iMjMiIHJ4PSIxNSIgaWQ9InN2Z182IiBjeT0iMTYxIiBjeD0iMzM3IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBpZD0ic3ZnXzgiIHkyPSIyNDgiIHgyPSIzMzgiIHkxPSIxODUiIHgxPSIzMzciIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJub25lIi8+CiAgPGxpbmUgaWQ9InN2Z185IiB5Mj0iMTc5LjE0Mjg4MyIgeDI9IjM4NS43MTQyOTQiIHkxPSIyMDEuMTQyODgzIiB4MT0iMzM1LjcxNDI5NCIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2U9IiMwMDAwMDAiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMTAiIHkyPSIxNzkuNjQyODU3IiB4Mj0iMjk2LjcxNDMiIHkxPSIyMDEuNjQyODU3IiB4MT0iMzQwLjcxNDMwMiIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg==')
+
+	}
+
+	if (guessWrong === 6) {
+
+		$('img').replaceWith('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0ODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSJudWxsIiBzdHlsZT0idmVjdG9yLWVmZmVjdDogbm9uLXNjYWxpbmctc3Ryb2tlOyI+CiA8IS0tIENyZWF0ZWQgd2l0aCBTVkctZWRpdCAtIGh0dHA6Ly9zdmctZWRpdC5nb29nbGVjb2RlLmNvbS8gLS0+CiA8ZyBzdHJva2U9Im51bGwiPgogIDx0aXRsZSBzdHJva2U9Im51bGwiPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z18xIiB5Mj0iMzc1IiB4Mj0iMjk4IiB5MT0iMzc0IiB4MT0iMTAyIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMiIgeTI9IjEwOCIgeDI9IjIwNiIgeTE9IjM3MyIgeDE9IjIwMiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzMiIHkyPSIxMTEiIHgyPSIzNDAiIHkxPSIxMTEiIHgxPSIyMDUiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z180IiB5Mj0iMTEwIiB4Mj0iMjU5IiB5MT0iMTcwIiB4MT0iMjA2IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfNSIgeTI9IjE0MCIgeDI9IjMzOCIgeTE9IjEwOSIgeDE9IjMzOCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGVsbGlwc2Ugc3Ryb2tlPSIjMDAwMDAwIiByeT0iMjMiIHJ4PSIxNSIgaWQ9InN2Z182IiBjeT0iMTYxIiBjeD0iMzM3IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBpZD0ic3ZnXzgiIHkyPSIyNDgiIHgyPSIzMzgiIHkxPSIxODUiIHgxPSIzMzciIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJub25lIi8+CiAgPGxpbmUgaWQ9InN2Z185IiB5Mj0iMTc5LjE0Mjg4MyIgeDI9IjM4NS43MTQyOTQiIHkxPSIyMDEuMTQyODgzIiB4MT0iMzM1LjcxNDI5NCIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2U9IiMwMDAwMDAiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMTAiIHkyPSIxNzkuNjQyODU3IiB4Mj0iMjk2LjcxNDMiIHkxPSIyMDEuNjQyODU3IiB4MT0iMzQwLjcxNDMwMiIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzExIiB5Mj0iMjk5LjE0Mjg4MiIgeDI9IjM2Ni43MTQyOTUiIHkxPSIyNDguMTQyODgzIiB4MT0iMzM4LjcxNDI5NCIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg==')
+
+	}
+
+	if (guessWrong === 7) {
+
+		$('img').replaceWith('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+Cjxzdmcgd2lkdGg9IjY0MCIgaGVpZ2h0PSI0ODAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSJudWxsIiBzdHlsZT0idmVjdG9yLWVmZmVjdDogbm9uLXNjYWxpbmctc3Ryb2tlOyI+CiA8IS0tIENyZWF0ZWQgd2l0aCBTVkctZWRpdCAtIGh0dHA6Ly9zdmctZWRpdC5nb29nbGVjb2RlLmNvbS8gLS0+CiA8ZyBzdHJva2U9Im51bGwiPgogIDx0aXRsZSBzdHJva2U9Im51bGwiPkxheWVyIDE8L3RpdGxlPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z18xIiB5Mj0iMzc1IiB4Mj0iMjk4IiB5MT0iMzc0IiB4MT0iMTAyIiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMiIgeTI9IjEwOCIgeDI9IjIwNiIgeTE9IjM3MyIgeDE9IjIwMiIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzMiIHkyPSIxMTEiIHgyPSIzNDAiIHkxPSIxMTEiIHgxPSIyMDUiIHN0cm9rZS13aWR0aD0iNSIgZmlsbD0ibm9uZSIvPgogIDxsaW5lIHN0cm9rZT0iIzAwMDAwMCIgaWQ9InN2Z180IiB5Mj0iMTEwIiB4Mj0iMjU5IiB5MT0iMTcwIiB4MT0iMjA2IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfNSIgeTI9IjE0MCIgeDI9IjMzOCIgeTE9IjEwOSIgeDE9IjMzOCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGVsbGlwc2Ugc3Ryb2tlPSIjMDAwMDAwIiByeT0iMjMiIHJ4PSIxNSIgaWQ9InN2Z182IiBjeT0iMTYxIiBjeD0iMzM3IiBzdHJva2Utd2lkdGg9IjUiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBpZD0ic3ZnXzgiIHkyPSIyNDgiIHgyPSIzMzgiIHkxPSIxODUiIHgxPSIzMzciIHN0cm9rZS13aWR0aD0iNSIgc3Ryb2tlPSIjMDAwMDAwIiBmaWxsPSJub25lIi8+CiAgPGxpbmUgaWQ9InN2Z185IiB5Mj0iMTc5LjE0Mjg4MyIgeDI9IjM4NS43MTQyOTQiIHkxPSIyMDEuMTQyODgzIiB4MT0iMzM1LjcxNDI5NCIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2U9IiMwMDAwMDAiIGZpbGw9Im5vbmUiLz4KICA8bGluZSBzdHJva2U9IiMwMDAwMDAiIGlkPSJzdmdfMTAiIHkyPSIxNzkuNjQyODU3IiB4Mj0iMjk2LjcxNDMiIHkxPSIyMDEuNjQyODU3IiB4MT0iMzQwLjcxNDMwMiIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzExIiB5Mj0iMjk5LjE0Mjg4MiIgeDI9IjM2Ni43MTQyOTUiIHkxPSIyNDguMTQyODgzIiB4MT0iMzM4LjcxNDI5NCIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiAgPGxpbmUgc3Ryb2tlPSIjMDAwMDAwIiBpZD0ic3ZnXzEyIiB5Mj0iMjk5LjE0Mjg1NiIgeDI9IjMwOS43MTQzMDMiIHkxPSIyNDQuMTQyODU3IiB4MT0iMzM5LjcxNDMwMyIgc3Ryb2tlLWxpbmVjYXA9Im51bGwiIHN0cm9rZS1saW5lam9pbj0ibnVsbCIgc3Ryb2tlLWRhc2hhcnJheT0ibnVsbCIgc3Ryb2tlLXdpZHRoPSI1IiBmaWxsPSJub25lIi8+CiA8L2c+Cjwvc3ZnPg==')
+
+	}
 
 
 
-
-
-
-
-// var guessCount = 0;
-// var guessedRight = 0;
-// var guessedWrong = 0;
-// var maxGuesses = 10;
-
-// var words = [
-
-
-// ];
-
-// var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L','M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
-
-// var word = "";
-
-// var answers = [];
-
-// function startup () {
-
-// 	var clickStart = document.getElementById("listener");
-
-// 	clickStart.addEventListener('click', startup);
-
-// 	word = words[Math.floor(Math.random() * words.length)];
-
-// 	answers = [];
-// 		for (var i = 0; word.length; i++) {
-// 			answers[i] = "_";
-// 		}
-// 	document.getElementById("answer").innerText= answers.join(" ");
-
-// };
-
-
-// function firstGuess () {
-
-// 	var guess = document.getElementById("numGuess").value;
-// 	var showMessage = "";
-
-// 	if (guess.length !== 1) {
-// 		showMessage ="Enter a single letter"
-// 	}
-// 		else {
-// 			var i = 0;
-// 			for (i = 0; i < words.length; i++) {
-// 				if (words[i] === guess) {
-// 					answers = guess;
-// 					showMessage = guess + " is in the answer!"
-// 				}
-// 			}
-// 			var lettersLeft = answers.length;
-
-// 			for (i = 0; i < answers.length; i++) {
-// 				if (answers[i] !== '_') {
-// 					lettersLeft -= 1;
-// 				}
-// 			}
-
-// 			if (lettersLeft == 0) {
-// 				showMessage = "You have guessed the word!"
-// 			}
-
-// 			if (showMessage === "") {
-// 				showMessage = "No " +guess;
-// 			}
-
-// 			document.getElementById("answer").innerText=answers.join(" ");
-
-// 			document.getElementById("numGuess").value = "";
-// 	}
-
-// 		document.getElementById("message").innerText = showMessage;
-// };
-
-
-
-
-// 	function hangman () {
-
-// 		if (guessedWrong === 0) {
-// 			document.getElementByClassName("hangman-container").innerHTML = 
-// 		}
-
-// 		else if (guessedWrong === 1) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else if (guessedWrong === 2) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else if (guessedWrong === 3) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else if (guessedWrong === 4) {
-// 			document.getElementByClassName("hangman-container").innerHTML = 
-// 		}
-
-// 		else if (guessedWrong === 5) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else if (guessedWrong === 6) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else if (guessedWrong === 7) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else if (guessedWrong === 8) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else if (guessedWrong === 9) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 		else (guessedWrong === 10) {
-// 			document.getElementByClassName("hangman-container").innerHTML =
-// 		}
-
-// 	};
-
-// })
-
-
-
-
-
-
-
-
-
+}
 
 
